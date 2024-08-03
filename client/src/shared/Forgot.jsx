@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from '@/constants/data';
+import Link from 'next/link';
 
 const Forgot = () => {
   const [email, setEmail] = useState('');
@@ -34,10 +35,10 @@ const Forgot = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#093A3E] to-[#0D6E71] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#093A3E] to-[#0D6E71] p-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 bg-white p-6 sm:p-8 rounded-xl shadow-2xl">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#0C6468]">
+          <h2 className="mt-2 text-center text-2xl sm:text-3xl font-bold text-[#0C6468]">
             Forgot Password
           </h2>
         </div>
@@ -51,7 +52,7 @@ const Forgot = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +61,7 @@ const Forgot = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468]"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468] transition-colors duration-300"
               >
                 Send OTP
               </button>
@@ -76,7 +77,7 @@ const Forgot = () => {
                 name="otp"
                 type="text"
                 required
-                className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
@@ -89,7 +90,7 @@ const Forgot = () => {
                 name="newPassword"
                 type="password"
                 required
-                className="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
                 placeholder="Enter new password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -98,7 +99,7 @@ const Forgot = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468]"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468] transition-colors duration-300"
               >
                 Reset Password
               </button>
@@ -106,15 +107,25 @@ const Forgot = () => {
           </form>
         )}
         {step === 3 && (
-          <div className="text-center">
-            <p className="text-xl font-semibold text-green-600">Password reset successful!</p>
-            <a href="/login" className="mt-4 inline-block text-[#0C6468] hover:text-[#0A5457] transition duration-300">
+          <div className="text-center py-8">
+            <p className="text-xl font-semibold text-green-600 mb-4">Password reset successful!</p>
+            <Link href="/login" className="inline-block text-[#0C6468] hover:text-[#0A5457] transition duration-300">
               Return to Login
-            </a>
+            </Link>
           </div>
         )}
       </div>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

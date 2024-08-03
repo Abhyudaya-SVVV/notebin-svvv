@@ -1,32 +1,35 @@
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
-import Upload from '@/components/Upload'
-import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
-import { FaCircleUser } from "react-icons/fa6";
-import { IoLogOut } from "react-icons/io5";
-import { MdHome, MdFileUpload, MdDelete } from "react-icons/md";
-import UserProfile from '@/components/UserProfile'
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import axios from 'axios';
 import jsCookie from 'js-cookie';
-import { BASE_URL } from '@/constants/data';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaCircleUser } from "react-icons/fa6";
+import { IoLogOut } from "react-icons/io5";
+import { MdHome, MdFileUpload, MdDelete, MdMenu } from "react-icons/md";
+
+import Footer from '@/components/Footer';
+import Upload from '@/components/Upload';
+import UserProfile from '@/components/UserProfile';
+import { BASE_URL } from '@/constants/data';
 
 const UploadNotes = () => {
   const [showRequests, setShowRequests] = useState(false);
   const [showUpload, setShowUpload] = useState(true);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleAdminClick = () => {
     setShowRequests(true);
     setShowUpload(false);
+    setMobileMenuOpen(false);
   };
 
   const handleUploadClick = () => {
     setShowUpload(true);
     setShowRequests(false);
+    setMobileMenuOpen(false);
   };
 
   useEffect(() => {
@@ -73,52 +76,82 @@ const UploadNotes = () => {
   };
 
   return (
-    <>
-      <main className="min-h-screen">
-        <div className='flex w-full min-h-[80vh]'>
-          <div className='flex flex-col items-center gap-10 h-[90vh] pt-5 w-20 bg-[#093A3E]'>
-            <div className='w-10 h-10 overflow-hidden rounded-full'>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      {/* Header */}
+      <header className="bg-[#093A3E] text-white p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Notebin</h1>
+        <button
+          className="md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <MdMenu size={24} />
+        </button>
+      </header>
+
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <nav className={`
+          ${mobileMenuOpen ? 'block' : 'hidden'} 
+          md:block 
+          bg-[#093A3E] text-white
+          w-full md:w-20 
+          fixed md:relative 
+          inset-0 md:inset-auto 
+          z-20 md:z-auto
+          overflow-y-auto
+        `}>
+          <div className="flex flex-col items-center py-4 space-y-6 ">
+            <div className='w-10 h-10 overflow-hidden rounded-full hidden md:block'>
               <img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="" className='w-full h-full' />
             </div>
-            <Link href="/"><MdHome size={25} color='white'/></Link>
-            <Link href="#" onClick={handleUploadClick}><MdFileUpload size={25} color='white'/></Link>
-            <Link href="#" onClick={handleAdminClick}><FaCircleUser size={24} color='white' /></Link>
-            <button onClick={handleLogout} className='pl-1'><IoLogOut size={25} color='white'/></button>
+            <Link href="/" className="flex gap-1 p-2 hover:bg-[#0c4c52] rounded"><MdHome size={25} /> <span className="block lg:hidden">HOME</span></Link>
+            <button onClick={handleUploadClick} className=" flex gap-1 p-2 hover:bg-[#0c4c52] rounded"><MdFileUpload size={25} /> <span className="block lg:hidden">UPLOAD</span></button>
+            <button onClick={handleAdminClick} className="flex gap-1 p-2 hover:bg-[#0c4c52] rounded"><FaCircleUser  size={24} /> <span className="block lg:hidden">PROFILE</span></button>
+            <button onClick={handleLogout} className="flex gap-1 p-2 hover:bg-[#0c4c52] rounded"><IoLogOut size={25} /> <span className="block lg:hidden">LOGOUT</span></button>
           </div>
-          
-          <div className='flex flex-col h-full w-[22%] border-r border-[#093A3E] items-center gap-2 pt-5 bg-white'>
-            <h1 className='text-2xl text-[#093A3E] font-semibold mainf tracking-[1px]'>All Notes</h1>
-            <div className='w-full h-[70vh] overflow-y-auto px-2 mt-2'>
-              {loading ? (
-                <p className="text-center">Loading notes...</p>
-              ) : notes.length === 0 ? (
-                <p className="text-center">No notes found.</p>
-              ) : (
-                notes.map(note => (
-                  <div key={note.id} className='flex justify-between bg-[#093A3E] text-white px-2 py-2 rounded mb-2 items-center'>
-                    <span className="truncate flex-1 mr-2">{note.title}</span>
-                    <div className="flex items-center">
-                      <Link href={note.fileUrl} className="mr-2 hover:underline">
-                        <small>Download</small>
-                      </Link>
-                      <button onClick={() => handleDelete(note._id)} className="text-red-400 hover:underline">
-                        <small>Delete</small>
-                      </button>
+        </nav>
+
+        {/* Main Content */}
+        <main className="flex-1 p-4 md:flex">
+          {/* Notes List */}
+          <div className='w-full md:w-1/3 lg:w-1/4 mb-4 md:mb-0 md:mr-4'>
+            <h2 className='text-2xl text-[#093A3E] font-semibold mb-4'>All Notes</h2>
+            <div className='bg-white rounded-lg shadow overflow-hidden'>
+              <div className='max-h-[70vh] overflow-y-auto p-4'>
+                {loading ? (
+                  <p className="text-center">Loading notes...</p>
+                ) : notes.length === 0 ? (
+                  <p className="text-center">No notes found.</p>
+                ) : (
+                  notes.map(note => (
+                    <div key={note.id} className='flex justify-between bg-[#093A3E] text-white p-2 rounded mb-2 items-center'>
+                      <span className="truncate flex-1 mr-2">{note.title}</span>
+                      <div className="flex items-center">
+                        <Link href={note.fileUrl} className="mr-2 hover:underline">
+                          <small>Download</small>
+                        </Link>
+                        <button onClick={() => handleDelete(note._id)} className="text-red-400 hover:underline">
+                          <small>Delete</small>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))
-              )}
+                  ))
+                )}
+              </div>
             </div>
           </div>
-          <div className='flex-1 bg-white'>
+
+          {/* Upload or User Profile */}
+          <div className='flex-1 bg-white rounded-lg shadow p-4'>
             {showRequests ? <UserProfile /> : showUpload ? <Upload onUploadSuccess={fetchNotes} /> : null}
           </div>
-        </div>
-        <Footer/>
-      </main>
-      <ToastContainer />
-    </>
-  )
-}
+        </main>
+      </div>
 
-export default UploadNotes
+      <Footer />
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default UploadNotes;

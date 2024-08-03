@@ -33,17 +33,21 @@ const Logs = () => {
   }, []);
 
   const filteredLogs = logs.filter((log) =>
-    Object.values(log).some((value) =>
-      typeof value === "object"
-        ? Object.values(value).some((nestedValue) =>
-            nestedValue
-              .toString()
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase())
-          )
-        : value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    Object.values(log).some((value) => {
+      if (typeof value === "object" && value !== null) {
+        return Object.values(value).some((nestedValue) =>
+          nestedValue !== null && nestedValue !== undefined &&
+          nestedValue
+            .toString()
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
+      }
+      return value !== null && value !== undefined &&
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+    })
   );
+  
 
   const sortedLogs = filteredLogs.sort((a, b) => {
     if (sortOrder === "Most Recent") {
@@ -71,18 +75,18 @@ const Logs = () => {
   return (
     <>
       <Navbar />
-      <div className="p-6 min-h-screen bg-gradient-to-b from-[#093A3E] to-[#005F63] text-white">
-        <h2 className="text-4xl font-bold mb-6 text-center">Activity Logs</h2>
-        <div className="flex flex-col md:flex-row justify-between mb-6">
+      <div className="p-4 sm:p-6 min-h-screen bg-gradient-to-b from-[#093A3E] to-[#005F63] text-white">
+        <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6 text-center">Activity Logs</h2>
+        <div className="flex flex-col sm:flex-row justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0 sm:space-x-4">
           <input
             type="text"
             placeholder="Search logs..."
-            className="mb-4 md:mb-0 md:mr-4 p-3 rounded-lg bg-[#008985] text-white placeholder-gray-300 border border-[#00A9A5] focus:outline-none focus:ring-2 focus:ring-[#00A9A5] transition duration-300 ease-in-out"
+            className="p-2 sm:p-3 rounded-lg bg-[#008985] text-white placeholder-gray-300 border border-[#00A9A5] focus:outline-none focus:ring-2 focus:ring-[#00A9A5] transition duration-300 ease-in-out w-full sm:w-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <select
-            className="p-3 rounded-lg bg-[#008985] text-white border border-[#00A9A5] focus:outline-none focus:ring-2 focus:ring-[#00A9A5] transition duration-300 ease-in-out"
+            className="p-2 sm:p-3 rounded-lg bg-[#008985] text-white border border-[#00A9A5] focus:outline-none focus:ring-2 focus:ring-[#00A9A5] transition duration-300 ease-in-out w-full sm:w-auto"
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
           >
@@ -92,65 +96,55 @@ const Logs = () => {
         </div>
         <div className="overflow-x-auto rounded-lg shadow-lg">
           {loading ? (
-            <div className="text-center">Loading...</div>
+            <div className="text-center p-4">Loading...</div>
           ) : error ? (
-            <div className="text-center text-red-500">Error: {error}</div>
+            <div className="text-center text-red-500 p-4">Error: {error}</div>
           ) : (
-            <table className="w-full table-auto">
-              <thead className="bg-[#00A9A5] text-white">
-                <tr>
-                  <th className="px-4 py-3 text-left">Time</th>
-                  <th className="px-4 py-3 text-left">User</th>
-                  <th className="px-4 py-3 text-left">Enrollment No.</th>
-                  <th className="px-4 py-3 text-left">Mobile</th>
-                  <th className="px-4 py-3 text-left">Email</th>
-                  <th className="px-4 py-3 text-left">Action</th>
-                  <th className="px-4 py-3 text-left">Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedLogs.map((log, index) => (
-                  <tr
-                    key={index}
-                    className={`bg-[#005F63] hover:bg-[#007A7E] transition duration-300 ease-in-out ${
-                      searchTerm &&
-                      Object.values(log)
-                        .flat()
-                        .some((value) =>
-                          value
-                            .toString()
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                        )
-                        ? "bg-yellow-100 text-black"
-                        : ""
-                    }`}
-                  >
-                    <td className="px-4 py-3">
-                      {highlightText(new Date(log.createdAt).toLocaleString(), searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.user.name, searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.user.enrollmentNo, searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.user.mobileNo, searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.user.email, searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.action, searchTerm)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {highlightText(log.details, searchTerm)}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto">
+                <thead className="bg-[#00A9A5] text-white">
+                  <tr>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Time</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">User</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Enrollment No.</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Mobile</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Email</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Action</th>
+                    <th className="px-2 sm:px-4 py-2 sm:py-3 text-left">Details</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {sortedLogs.map((log, index) => (
+                    <tr
+                      key={index}
+                      className={`bg-[#005F63] hover:bg-[#007A7E] transition duration-300 ease-in-out`}
+                    >
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(new Date(log.createdAt).toLocaleString(), searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.user.name, searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.user.enrollmentNo, searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.user.mobileNo, searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.user.email, searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.action, searchTerm)}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                        {highlightText(log.details, searchTerm)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>

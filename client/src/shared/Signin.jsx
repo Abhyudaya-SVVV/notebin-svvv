@@ -87,46 +87,46 @@ const Signin = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#093A3E] to-[#0D6E71] py-5">
-        <div className="w-full max-w-md shadow-xl py-8 px-8 bg-white rounded-lg">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#093A3E] to-[#0D6E71] p-4 sm:p-6 md:p-8">
+        <div className="w-full max-w-md shadow-xl py-6 px-4 sm:px-6 md:px-8 bg-white rounded-lg">
           <p className='text-sm font-semibold'>Welcome to <span className='text-[#093A3E]'>Abhyudaya Club</span></p>
-          <h1 className='text-[3rem] font-[500] text-[#093A3E]'>Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <div className='mt-6'>
-              <p className='text-sm'>Email Address</p>
-              <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder='Email Address' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
+          <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-[#093A3E] mt-2'>Sign In</h1>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div>
+              <label htmlFor="email" className='text-sm font-medium text-gray-700'>Email Address</label>
+              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder='Email Address' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' required />
             </div>
 
-            <div className='mt-6'>
-              <p className='text-sm'>Enrollment Number</p>
-              <input type="text" name="enrollmentNo" value={formData.enrollmentNo} onChange={handleChange} placeholder='Enrollment Number' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
+            <div>
+              <label htmlFor="enrollmentNo" className='text-sm font-medium text-gray-700'>Enrollment Number</label>
+              <input type="text" id="enrollmentNo" name="enrollmentNo" value={formData.enrollmentNo} onChange={handleChange} placeholder='Enrollment Number' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' required />
             </div>
 
-            <div className='mt-6 flex justify-between'>
-              <div className='w-[48%]'>
-                <p className='text-sm'>Name</p>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder='Name' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
+            <div className='flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4'>
+              <div className='flex-1'>
+                <label htmlFor="name" className='text-sm font-medium text-gray-700'>Name</label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} placeholder='Name' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' required />
               </div>
-              <div className='w-[48%]'>
-                <p className='text-sm'>Mobile Number</p>
-                <input type="text" name="mobileNo" value={formData.mobileNo} onChange={handleChange} placeholder='Mobile Number' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
+              <div className='flex-1'>
+                <label htmlFor="mobileNo" className='text-sm font-medium text-gray-700'>Mobile Number</label>
+                <input type="tel" id="mobileNo" name="mobileNo" value={formData.mobileNo} onChange={handleChange} placeholder='Mobile Number' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' required />
               </div>
             </div>
 
-            <div className='mt-6'>
-              <p className='text-sm'>Semester / Year <span className='text-xs text-gray-400'>(optional)</span></p>
-              <input type="text" name="semester" value={formData.semester} onChange={handleChange} placeholder='Semester / Year' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' />
+            <div>
+              <label htmlFor="semester" className='text-sm font-medium text-gray-700'>Semester / Year <span className='text-xs text-gray-400'>(optional)</span></label>
+              <input type="text" id="semester" name="semester" value={formData.semester} onChange={handleChange} placeholder='Semester / Year' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' />
             </div>
 
-            <div className='mt-6'>
-              <p className='text-sm'>Password</p>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
-              <Link href="/forgot" className='text-xs text-[#093A3E] flex justify-end mt-1'>Forgot Password?</Link>
+            <div>
+              <label htmlFor="password" className='text-sm font-medium text-gray-700'>Password</label>
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' className='mt-1 w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-[#093A3E] focus:ring-1 focus:ring-[#093A3E]' required />
+              <Link href="/forgot" className='text-xs text-[#093A3E] hover:underline flex justify-end mt-1'>Forgot Password?</Link>
             </div>
 
-            <div className='flex justify-evenly mt-8'>
-              <Link href="/login" className='text-md border-2 border-[#093A3E] outline-none py-3 px-12 rounded-lg text-[#093A3E]'>Login</Link>
-              <button type="submit" className='text-md bg-[#093A3E] outline-none py-3 px-12 rounded-lg text-white'>Sign in</button>
+            <div className='flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6'>
+              <Link href="/login" className='w-full sm:w-auto text-center text-sm font-medium border-2 border-[#093A3E] py-2 px-4 rounded-md text-[#093A3E] hover:bg-[#093A3E] hover:text-white transition-colors duration-300'>Login</Link>
+              <button type="submit" className='w-full sm:w-auto text-sm font-medium bg-[#093A3E] py-2 px-4 rounded-md text-white hover:bg-[#0D6E71] transition-colors duration-300'>Sign in</button>
             </div>
           </form>
         </div>

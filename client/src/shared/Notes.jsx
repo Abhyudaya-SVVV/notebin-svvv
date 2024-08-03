@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import Footer from "@/components/Footer";
+import { FaFilter } from "react-icons/fa";
 import Navbar from "@/components/Navbar";
 import initialFilters from "@/constants/filters";
 import Cookies from "js-cookie";
@@ -16,6 +17,7 @@ const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -116,21 +118,21 @@ const Notes = () => {
   };
 
   return (
-    <div className="bg-white w-[100vw] h-[100vh]">
+    <div className="bg-white w-full min-h-screen">
       <Navbar />
 
-      <main className="max-w-[100%] mx-auto min-h-[100vh] px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between border-b border-gray-200 pb-3 pt-3 items-center">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+      <main className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between border-b border-gray-200 pb-3 pt-3 items-center">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 mb-4 sm:mb-0">
             Explore Notes
           </h1>
 
-          <div className="flex items-center space-x-4">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Search notes..."
-                className="pl-10 pr-4 py-2 border rounded-md"
+                className="w-full sm:w-auto pl-10 pr-4 py-2 border rounded-md"
                 value={searchTerm}
                 onChange={handleSearch}
               />
@@ -140,9 +142,9 @@ const Notes = () => {
               />
             </div>
 
-            <div className="relative inline-block text-left">
+            <div className="relative inline-block text-left w-full sm:w-auto">
               <select
-                className="appearance-none bg-white border border-gray-300 rounded-md pl-3 pr-10 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full sm:w-auto appearance-none bg-white border border-gray-300 rounded-md pl-3 pr-10 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                 value={sortOption}
                 onChange={(e) => handleSortChange(e.target.value)}
               >
@@ -158,8 +160,18 @@ const Notes = () => {
         </div>
 
         <section aria-labelledby="products-heading" className="pb-24 pt-6">
+          <div className="lg:hidden mb-4">
+            <button
+              type="button"
+              className="w-full flex justify-center items-center gap-1 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50"
+              onClick={() => setMobileFiltersOpen(true)}
+            >
+              <FaFilter size={12}/>Filters 
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 gap-y-10">
-            {/* Filters */}
+            {/* Filters for desktop */}
             <form className="hidden lg:block">
               {filters.map((section) => (
                 <div key={section.id} className="border-b border-gray-200 py-3">
@@ -213,6 +225,14 @@ const Notes = () => {
               ))}
             </form>
 
+            {/* Mobile filter dialog */}
+            <MobileFilterDialog
+              mobileFiltersOpen={mobileFiltersOpen}
+              setMobileFiltersOpen={setMobileFiltersOpen}
+              filters={filters}
+              handleFilterChange={handleFilterChange}
+            />
+
             {/* Note grid */}
             <div className="lg:col-span-4">
               {loading ? (
@@ -220,32 +240,9 @@ const Notes = () => {
               ) : error ? (
                 <div>Error: {error}</div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {filteredNotes.map((note) => (
-                    <div
-                      key={note._id}
-                      className="group relative border rounded shadow-md"
-                    >
-                      <h1 className="text-2xl py-2 border-b px-2 wrap">
-                        {(note.title).slice(0,30)}
-                      </h1>
-                      <div className="flex justify-between p-2 text-sm">
-                        <p>{note.semester} sem</p>
-                        <a
-                          href={note.fileUrl}
-                          rel="noopener noreferrer"
-                          className="bg-[#093A3E] text-white px-2 py-1 rounded"
-                        >
-                          Download
-                        </a>
-                      </div>
-                      <div className="text-xs p-2 text-gray-500">
-                        <p>{note.user.name}</p>
-                        <p>{note.user.enrollmentNo}</p>
-                        <p>Subject : {note.subject}</p>
-                        <p>{formatDate(note.createdAt)}</p>
-                      </div>
-                    </div>
+                    <NoteCard key={note._id} note={note} formatDate={formatDate} />
                   ))}
                 </div>
               )}
@@ -255,6 +252,120 @@ const Notes = () => {
       </main>
 
       <Footer />
+    </div>
+  );
+};
+
+const NoteCard = ({ note, formatDate }) => {
+  return (
+  <div className="group relative border rounded shadow-md p-4">
+  <h1 className="text-xl sm:text-2xl pb-2 border-b mb-2 truncate">
+    {note.title}
+  </h1>
+  <div className="flex justify-between items-center mb-2">
+    <p className="text-sm">{note.semester} sem</p>
+    <a
+      href={note.fileUrl}
+      rel="noopener noreferrer"
+      className="bg-[#093A3E] text-white px-2 py-1 rounded text-sm"
+    >
+      Download
+    </a>
+  </div>
+  <div className="text-xs text-gray-500">
+    <p>{note.user.name}</p>
+    <p>{note.user.enrollmentNo}</p>
+    <p>Subject: {note.subject}</p>
+    <p>{formatDate(note.createdAt)}</p>
+  </div>
+</div>
+)
+};
+
+const MobileFilterDialog = ({ mobileFiltersOpen, setMobileFiltersOpen, filters, handleFilterChange }) => {
+  const [openDropdowns, setOpenDropdowns] = useState({});
+
+  const toggleDropdown = (sectionId) => {
+    setOpenDropdowns((prev) => ({
+      ...prev,
+      [sectionId]: !prev[sectionId],
+    }));
+  };
+
+  return (
+    <div className={`fixed inset-0 flex z-40 lg:hidden ${mobileFiltersOpen ? '' : 'hidden'}`}>
+      <div className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-6 flex flex-col overflow-y-auto">
+        <div className="px-4 flex items-center justify-between">
+          <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+          <button
+            type="button"
+            className="-mr-2 w-10 h-10 p-2 flex items-center justify-center text-gray-400 hover:text-gray-500"
+            onClick={() => setMobileFiltersOpen(false)}
+          >
+            <span className="sr-only">Close menu</span>
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Filters */}
+        <form className="mt-4">
+          {filters.map((section) => (
+            <div key={section.id} className="border-t border-gray-200 pt-4 pb-4">
+              <fieldset>
+                <legend className="w-full px-2">
+                  <button
+                    type="button"
+                    className="w-full p-2 flex items-center justify-between text-gray-400 hover:text-gray-500"
+                    aria-controls={`filter-section-${section.id}`}
+                    aria-expanded={openDropdowns[section.id] || false}
+                    onClick={() => toggleDropdown(section.id)}
+                  >
+                    <span className="text-sm font-medium text-gray-900">{section.name}</span>
+                    <span className="ml-6 h-7 flex items-center">
+                      <svg
+                        className={`${openDropdowns[section.id] ? 'rotate-180' : 'rotate-0'} h-5 w-5 transform`}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </legend>
+                {openDropdowns[section.id] && (
+                  <div className="pt-4 pb-2 px-4" id={`filter-section-${section.id}`}>
+                    <div className="space-y-6">
+                      {section.options.map((option, optionIdx) => (
+                        <div key={option.value} className="flex items-center">
+                          <input
+                            id={`filter-${section.id}-${optionIdx}`}
+                            name={`${section.id}[]`}
+                            value={option.value}
+                            type="checkbox"
+                            checked={option.checked}
+                            onChange={() => handleFilterChange(section.id, option.value)}
+                            className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label htmlFor={`filter-${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
+                            {option.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </fieldset>
+            </div>
+          ))}
+        </form>
+      </div>
     </div>
   );
 };
