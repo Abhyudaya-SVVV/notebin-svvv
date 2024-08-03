@@ -121,7 +121,7 @@ const Signin = () => {
             <div className='mt-6'>
               <p className='text-sm'>Password</p>
               <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' className='w-full outline-none border border-[#093A3E] rounded-md py-2 px-3 mt-2' required />
-              <a href="#" className='text-xs text-[#093A3E] flex justify-end mt-1'>Forgot Password?</a>
+              <Link href="/forgot" className='text-xs text-[#093A3E] flex justify-end mt-1'>Forgot Password?</Link>
             </div>
 
             <div className='flex justify-evenly mt-8'>
