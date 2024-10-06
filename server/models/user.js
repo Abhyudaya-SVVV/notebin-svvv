@@ -8,6 +8,11 @@ const userSchema = new Schema(
       default: uuidv4,
       unique: true,
     },
+    accountType: {
+      type: String,
+      enum: ['student', 'faculty'],
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -19,8 +24,9 @@ const userSchema = new Schema(
     },
     enrollmentNo: {
       type: String,
-      required: true,
+      required: function() { return this.accountType === 'student'; },
       unique: true,
+      sparse: true,
     },
     mobileNo: {
       type: String,
@@ -33,11 +39,11 @@ const userSchema = new Schema(
     semester: {
       type: String,
     },
-    otp:{
+    otp: {
       type: String
     },
     otpExpires: {
-      type:Date
+      type: Date
     },
   },
   {

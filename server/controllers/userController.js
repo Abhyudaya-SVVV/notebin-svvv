@@ -7,27 +7,39 @@ const {sendMail} = require('../utils/email.js');
 
 // Sign up
 const signup = TryCatch(async (req, res) => {
-  const { userId, name, email, enrollmentNo, mobileNo, password, semester } = req.body;
+  const { userId, accountType, name, email, enrollmentNo, mobileNo, password, semester, secretKey } = req.body;
 
+  // Check if user already exists
   let user = await User.findOne({ email });
   if (user) {
     return res.status(400).json({ msg: "User already exists" });
   }
 
-  user = await User.findOne({ enrollmentNo });
-  if (user) {
-    return res.status(400).json({ msg: "Enrollment number already in use" });
+  // For students, check if enrollment number is unique
+  if (accountType === 'student') {
+    user = await User.findOne({ enrollmentNo });
+    if (user) {
+      return res.status(400).json({ msg: "Enrollment number already in use" });
+    }
+  }
+
+  // For faculty, verify secret key
+  if (accountType === 'faculty') {
+    if (secretKey !== process.env.FACULTY_SECRET_KEY) {
+      return res.status(400).json({ msg: "Invalid secret key for faculty signup" });
+    }
   }
 
   // Create a new user
   user = new User({
     userId,
+    accountType,
     name,
-    enrollmentNo,
     email,
-    password,
+    enrollmentNo: accountType === 'student' ? enrollmentNo : undefined,
     mobileNo,
-    semester,
+    password,
+    semester: accountType === 'student' ? semester : undefined,
   });
 
   // Password Hashing
@@ -37,11 +49,11 @@ const signup = TryCatch(async (req, res) => {
   // Save the user in the database
   await user.save();
 
-  // Return Jwt
+  // Return JWT
   const payload = {
     user: {
       id: user.id,
-      username: user.username,
+      accountType: user.accountType,
     },
   };
 

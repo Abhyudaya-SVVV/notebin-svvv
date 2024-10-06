@@ -48,7 +48,7 @@ const uploadFile = TryCatch(async (req, res) => {
 const getFiles = TryCatch(async (req, res) => {
   const files = await File.find().populate(
     "user",
-    "userId name enrollmentNo semester"
+    "userId name enrollmentNo semester accountType"
   );
   res.status(200).json(files);
 });
