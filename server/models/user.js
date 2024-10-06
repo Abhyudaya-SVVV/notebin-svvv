@@ -24,9 +24,12 @@ const userSchema = new Schema(
     },
     enrollmentNo: {
       type: String,
-      required: function() { return this.accountType === 'student'; },
-      unique: true,
-      sparse: true,
+      validate: {
+        validator: function(v) {
+          return this.accountType === 'student' ? v != null : true;
+        },
+        message: 'Enrollment number is required for students'
+      }
     },
     mobileNo: {
       type: String,

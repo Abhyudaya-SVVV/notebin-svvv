@@ -36,7 +36,7 @@ const signup = TryCatch(async (req, res) => {
     accountType,
     name,
     email,
-    enrollmentNo: accountType === 'student' ? enrollmentNo : undefined,
+    enrollmentNo: accountType === 'student' ? enrollmentNo : null,
     mobileNo,
     password,
     semester: accountType === 'student' ? semester : undefined,
