@@ -16,6 +16,10 @@ const Upload = ({ onUploadSuccess }) => {
   const [uploadState, setUploadState] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const semesters = [
+    'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth'
+  ];
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
@@ -73,7 +77,7 @@ const Upload = ({ onUploadSuccess }) => {
 
   return (
     <div className='w-full h-full p-6 bg-gray-50'>
-      <h2 className="text-2xl font-bold text-[#093A3E] mb-6">Upload New Note</h2>
+      <h2 className="text-2xl font-bold text-primary mb-6">Upload New Note</h2>
       <form onSubmit={handleSubmit} className='flex flex-col items-start gap-5'>
         <input
           type='text'
@@ -81,7 +85,7 @@ const Upload = ({ onUploadSuccess }) => {
           placeholder='Enter Title of the Notes'
           value={formData.title}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-[#093A3E] focus:ring-2 focus:ring-[#093A3E]'
+          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
         />
         <input
           type='text'
@@ -89,23 +93,26 @@ const Upload = ({ onUploadSuccess }) => {
           placeholder='Enter Subject'
           value={formData.subject}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-[#093A3E] focus:ring-2 focus:ring-[#093A3E]'
+          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
         />
-        <input
-          type='text'
+        <select
           name='semester'
-          placeholder='Enter Semester'
           value={formData.semester}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-[#093A3E] focus:ring-2 focus:ring-[#093A3E]'
-        />
+          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
+        >
+          <option value="">Select Semester</option>
+          {semesters.map((sem) => (
+            <option key={sem} value={sem}>{sem}</option>
+          ))}
+        </select>
         <input
           type='text'
           name='keyword'
           placeholder='Enter Keywords'
           value={formData.keyword}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-[#093A3E] focus:ring-2 focus:ring-[#093A3E]'
+          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
         />
         <input
           type='file'
@@ -120,7 +127,7 @@ const Upload = ({ onUploadSuccess }) => {
         )}
         <button 
           type='submit' 
-          className='bg-[#093A3E] text-white px-4 py-2 rounded hover:bg-[#0c4c52] transition duration-300 disabled:opacity-50'
+          className='bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition duration-300 disabled:opacity-50'
           disabled={loading}
         >
           {loading ? 'Uploading...' : 'Upload'}

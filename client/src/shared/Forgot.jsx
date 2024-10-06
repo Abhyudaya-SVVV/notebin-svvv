@@ -35,10 +35,10 @@ const Forgot = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#093A3E] to-[#0D6E71] p-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-white p-6 sm:p-8 rounded-xl shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-primary to-primary/80 p-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md space-y-8 bg-tertiary p-6 sm:p-8 rounded-xl shadow-2xl">
         <div>
-          <h2 className="mt-2 text-center text-2xl sm:text-3xl font-bold text-[#0C6468]">
+          <h2 className="mt-2 text-center text-2xl sm:text-3xl font-bold text-primary">
             Forgot Password
           </h2>
         </div>
@@ -52,7 +52,7 @@ const Forgot = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-500 bg-tertiary rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -61,7 +61,7 @@ const Forgot = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468] transition-colors duration-300"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"
               >
                 Send OTP
               </button>
@@ -77,7 +77,7 @@ const Forgot = () => {
                 name="otp"
                 type="text"
                 required
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
@@ -90,7 +90,7 @@ const Forgot = () => {
                 name="newPassword"
                 type="password"
                 required
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#0C6468] focus:border-[#0C6468] sm:text-sm"
+                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 placeholder="Enter new password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
@@ -99,7 +99,7 @@ const Forgot = () => {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#0C6468] hover:bg-[#0A5457] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0C6468] transition-colors duration-300"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300"
               >
                 Reset Password
               </button>
@@ -109,7 +109,7 @@ const Forgot = () => {
         {step === 3 && (
           <div className="text-center py-8">
             <p className="text-xl font-semibold text-green-600 mb-4">Password reset successful!</p>
-            <Link href="/login" className="inline-block text-[#0C6468] hover:text-[#0A5457] transition duration-300">
+            <Link href="/login" className="inline-block text-primary hover:text-primary/80 transition duration-300">
               Return to Login
             </Link>
           </div>
