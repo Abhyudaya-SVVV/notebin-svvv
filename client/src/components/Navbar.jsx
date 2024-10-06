@@ -41,7 +41,7 @@ const Navbar = () => {
               {token ? (
                 <button onClick={handleLogout} className='border-secondary border text-secondary px-4 py-1 rounded-full hover:bg-tertiary hover:text-primary'>Logout</button>
               ) : (
-                <Link href="/signin" className='border-secondary border text-secondary px-4 py-1 rounded-full hover:bg-tertiary hover:text-primary'>Sign in</Link>
+                <Link href="/login" className='border-secondary border text-secondary px-4 py-1 rounded-full hover:bg-tertiary hover:text-primary'>Login</Link>
               )}
             </div>
           </div>
@@ -73,7 +73,7 @@ const Navbar = () => {
             {token ? (
               <button onClick={handleLogout} className='block w-full text-left hover:bg-secondary/30 px-3 py-2 rounded-md text-base font-medium'>Logout</button>
             ) : (
-              <Link href="/signin" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Sign in</Link>
+              <Link href="/login" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Log in</Link>
             )}
           </div>
         </div>

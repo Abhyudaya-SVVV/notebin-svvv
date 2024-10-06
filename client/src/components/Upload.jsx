@@ -114,12 +114,18 @@ const Upload = ({ onUploadSuccess }) => {
           onChange={handleChange}
           className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
         />
-        <input
-          type='file'
-          name='file'
-          onChange={handleChange}
-          className='w-full max-w-md'
-        />
+        <div className="w-full max-w-md">
+          <input
+            type='file'
+            name='file'
+            onChange={handleChange}
+            className='w-full'
+            accept=".pdf,.doc,.docx"
+          />
+          <p className="text-sm text-gray-600 mt-1">
+            Note: The file size must be less than 50MB, and only PDF and Word documents are accepted.
+          </p>
+        </div>
         {uploadState && (
           <div className={`mt-3 text-center ${uploadState.includes('failed') ? 'text-red-500' : 'text-green-500'}`}>
             {uploadState}

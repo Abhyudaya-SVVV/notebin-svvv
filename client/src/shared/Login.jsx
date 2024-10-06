@@ -76,7 +76,7 @@ const Login = () => {
             <Link href="/forgot" className='text-xs text-primary hover:underline flex justify-end mt-1'>Forgot Password?</Link>
           </div>
           <div className='flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6'>
-            <Link href="/signin" className='w-full sm:w-auto text-center text-sm font-medium border-2 border-primary py-2 px-4 rounded-md text-primary hover:bg-primary hover:text-white transition-colors duration-300'>Sign in</Link>
+            <Link href="/signin" className='w-full sm:w-auto text-center text-sm font-medium border-2 border-primary py-2 px-4 rounded-md text-primary hover:bg-primary hover:text-white transition-colors duration-300'>Sign up</Link>
             <button type="submit" className='w-full sm:w-auto text-sm font-medium bg-primary py-2 px-4 rounded-md text-white hover:bg-primary/80 transition-colors duration-300'>Login</button>
           </div>
         </form>

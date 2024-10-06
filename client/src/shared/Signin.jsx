@@ -96,7 +96,7 @@ const Signin = () => {
         <div className='flex justify-between'><p className='text-sm font-semibold'>Welcome to <span className='text-primary/50'>Abhyudaya Club</span></p>
         <Link href="/" className=' flex items-center text-sm font-semibold text-primary'> <IoIosArrowBack />
          Home</Link></div>
-          <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-primary mt-2'>Sign In</h1>
+          <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-primary mt-2'>Sign up</h1>
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
               <label htmlFor="accountType" className='text-sm font-medium text-gray-700'>Account Type</label>
@@ -153,12 +153,12 @@ const Signin = () => {
             <div>
               <label htmlFor="password" className='text-sm font-medium text-gray-700'>Password</label>
               <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder='Password' className='mt-1 w-full px-3 py-2 bg-tertiary border border-gray-500 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary' required />
-              <Link href="/forgot" className='text-xs text-primary hover:underline flex justify-end mt-1'>Forgot Password?</Link>
+              {/* <Link href="/forgot" className='text-xs text-primary hover:underline flex justify-end mt-1'>Forgot Password?</Link> */}
             </div>
 
             <div className='flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-6'>
               <Link href="/login" className='w-full sm:w-auto text-center text-sm font-medium border-2 border-primary py-2 px-4 rounded-md text-primary hover:bg-primary hover:text-white transition-colors duration-300'>Login</Link>
-              <button type="submit" className='w-full sm:w-auto text-sm font-medium bg-primary py-2 px-4 rounded-md text-white hover:bg-primary/80 transition-colors duration-300'>Sign in</button>
+              <button type="submit" className='w-full sm:w-auto text-sm font-medium bg-primary py-2 px-4 rounded-md text-white hover:bg-primary/80 transition-colors duration-300'>Sign up</button>
             </div>
           </form>
         </div>

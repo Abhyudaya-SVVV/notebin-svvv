@@ -44,18 +44,24 @@ const Notes = () => {
   useEffect(() => {
     let result = notes;
 
-    // filters
+    // Apply filters
     filters.forEach((filter) => {
       const checkedOptions = filter.options
         .filter((option) => option.checked)
         .map((option) => option.value);
       if (checkedOptions.length > 0) {
-        result = result.filter((note) =>
-          checkedOptions.includes(note[filter.id])
-        );
+        result = result.filter((note) => {
+          if (filter.id === "semester") {
+            const noteSemester = note.semester.toLowerCase();
+            return checkedOptions.some(option => noteSemester.includes(option));
+          }
+          // For other filters, keep the existing logic
+          return checkedOptions.includes(note[filter.id]);
+        });
       }
     });
 
+    // Apply search
     if (searchTerm) {
       result = result.filter(
         (note) =>
@@ -64,16 +70,17 @@ const Notes = () => {
       );
     }
 
-    // sorting
+    // Apply sorting
     switch (sortOption) {
       case "Oldest":
         result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         break;
-        case "Newest":
+      case "Newest":
         result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         break;
       case "Verified":
         result = result.filter((note) => note.user.accountType === "faculty");
+        break;
       default:
         result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         break;
