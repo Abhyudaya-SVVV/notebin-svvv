@@ -67,8 +67,8 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link href="/" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Home</Link>
             <Link href="/notes" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Notes</Link>
+            <Link href="/uploadNotes" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Upload</Link>
             <Link href="https://www.linkedin.com/in/mandeepyadav27/" target="_blank" className='hover:bg-secondary/30 block px-3 py-2 rounded-md text-base font-medium'>Contact</Link>
             {token ? (
               <button onClick={handleLogout} className='block w-full text-left hover:bg-secondary/30 px-3 py-2 rounded-md text-base font-medium'>Logout</button>

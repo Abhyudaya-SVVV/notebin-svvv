@@ -114,32 +114,32 @@ const UploadNotes = () => {
         {/* Main Content */}
         <main className="flex-1 p-4 md:flex">
           {/* Notes List */}
-          <div className='w-full md:w-1/3 lg:w-1/4 mb-4 md:mb-0 md:mr-4'>
-            <h2 className='text-2xl text-primary font-semibold mb-4'>All Notes</h2>
-            <div className='bg-white rounded-lg shadow overflow-hidden'>
-              <div className='max-h-[70vh] overflow-y-auto p-4'>
-                {loading ? (
-                  <p className="text-center">Loading notes...</p>
-                ) : notes.length === 0 ? (
-                  <p className="text-center">No notes found.</p>
-                ) : (
-                  notes.map(note => (
-                    <div key={note.id} className='flex justify-between bg-primary text-tertiary p-2 rounded mb-2 items-center'>
-                      <span className="truncate flex-1 mr-2">{note.title}</span>
-                      <div className="flex items-center">
-                        <Link href={note.fileUrl} className="mr-2 hover:underline">
-                          <small>Download</small>
-                        </Link>
-                        <button onClick={() => handleDelete(note._id)} className="text-red-400 hover:underline">
-                          <small>Delete</small>
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
+          <div className='w-full lg:w-1/3 xl:w-1/4 mb-4 lg:mb-0 lg:mr-4'>
+      <h2 className='text-xl sm:text-2xl text-primary font-semibold mb-4'>All Notes</h2>
+      <div className='bg-white rounded-lg shadow overflow-hidden'>
+        <div className='max-h-[60vh] sm:max-h-[70vh] overflow-y-auto p-2 sm:p-4'>
+          {loading ? (
+            <p className="text-center">Loading notes...</p>
+          ) : notes.length === 0 ? (
+            <p className="text-center">No notes found.</p>
+          ) : (
+            notes.map(note => (
+              <div key={note.id} className='flex flex-col sm:flex-row  justify-between bg-primary text-tertiary px-2 py-1 md:py-2 rounded mb-2 md:items-start sm:items-center'>
+                <span className="truncate w-full text-sm sm:w-auto sm:flex-1 mr-2 mb-0 md:mb-2 sm:mb-0">{note.title}</span>
+                <div className="flex items-center w-full sm:w-auto justify-between sm:justify-end">
+                  <Link href={note.fileUrl} className="mr-2 hover:underline text-green-400">
+                    <small>Download</small>
+                  </Link>
+                  <button onClick={() => handleDelete(note._id)} className="text-red-400 hover:underline">
+                    <small>Delete</small>
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
 
           {/* Upload or User Profile */}
           <div className='flex-1 bg-white rounded-lg shadow p-4'>
