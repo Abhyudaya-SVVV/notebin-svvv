@@ -1,14 +1,17 @@
 
 /.env 
+
 # dependencies
 /node_modules
+/notebin.json
+
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # Local env files
 .env*.local
-server/utils/notebin.json
+
 
 
 # testing

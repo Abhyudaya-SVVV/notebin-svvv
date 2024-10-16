@@ -3,17 +3,14 @@
   const File = require("../models/fileModel");
   const TryCatch = require("../middlewares/errorHandler.js");
   const Log = require("../models/logModel");
-  const path = require('path');
-
-  // Load the service account key JSON file
-  const KEYFILEPATH = path.join(__dirname, '../utils/notebin.json');
-  const SCOPES = ['https://www.googleapis.com/auth/drive'];
 
   // Auth with service account
-  const auth = new google.auth.GoogleAuth({
-    keyFile: KEYFILEPATH,
-    scopes: SCOPES,
-  });
+  const auth = new google.auth.JWT(
+    process.env.GOOGLE_CLIENT_EMAIL,
+    null,
+    process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    ['https://www.googleapis.com/auth/drive'] // Scopes
+  );
 
   // Initialize drive client
   const drive = google.drive({ version: 'v3', auth });
