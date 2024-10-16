@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "notebin-438804",
+    "private_key_id": "7eeb151018b7479e370b1fa2f4ee679166c01373",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDAbPxFFfQz00CJ\nKkanIZ58pZu2CDma7x1DDw/Uhdf7MlD+jzH0QCpsdxs2eqUmJC6n9HvRRTNLR3Ec\nS8JQD4Sf40vmRY2nMTdKiz4w0V2frQSv66U51nSc52/V3rOI2F15OZ0xsChPGglD\nijaFS2JcTfs+GhaYU7M6uu5QXZn4Fvt1PBGRCydvTk/yANFlxIb8LTFp4kOATOtt\n2SMFGZiO5/OMp3f9bwgDvxuyQHe25IlHnOEVMynvQYi768kkHYGRRlyuqvrCRMzs\nhK2RceI129LvSw2z9sZ4o9woEfXj83Vw12onpIK9tMlE0tI3eZMBOaZFimQFoYX4\nxGsaeUU9AgMBAAECggEAQIarZ51PiOtvqi9fht76rvC30OhcLMy/IsQTul/xh54d\nU+d/yFiWAU5FdVTWOX6LmK2esZPDehxoXSU4cTFq91S4mGy9bhHOaTRdM/CZNRjH\nSBi8jLMR4qWnNnAaAysO2T5NLKLWOYRRE/Fui+81+h76P55u8kCrCugxTwi8P1kb\nesJTMRKfcpoJ55KxBDSq/wQhsozxNRGvlwtJHoi+vbgXGfk29sHoCuLjJreiyXmA\nazF0Q5Yqahzex8vIomXzUs9eP9Z/7JoODHYbDjn6zxvsosmO4068KR7/br393nHW\nwMkRd5mhfBlxz4Y3aONuUvML3qaOCawhgJZpxG5mHwKBgQD8l1Vb+aQ4Ehq303zP\nbnkszXBD2y3svSJJxBQd1PYWnKtDxLpKt9aNKw8bE+aSJvynOOXQXWHCCOno6unZ\nMexsnXnpUwxqGAKsw+qnUzH5G22ckupHHelwGOWPHmQX/rvc+FwsVOTRRNN7+r/I\nrj68G47myMypLK0uAekrPfoa3wKBgQDDBcn75KXBvSijcMdFzdQJejz+EUe19kza\nlRaurKkC6Ry39SqwaJuNOY9PQii+mfYPlaaJQOtgeeruNgH/EGhhyOrKC8CVFybO\nssQv4j85DcV4gBRRFhCyzZn2O+Lrg3m2P9XZSsVpbW4dHbcj/UD509WMPeuE5jJ7\nbTEb0lw/YwKBgHIgQk4TRnKbI31JTgw/IvruO7o9Dsv3TMW9lUVBUos28F7nRTC7\nTXJtMR8P587DVMaNe7CgcKoF8wHtGgmrd+I/aLTWdDZ/cL30q1I80ch27xiefMHz\nLuUaKqZ2mc0JqIIXqTXSiaxQB6ntyrd2mxvM6800jtwlNn4iGOMT1qxLAoGBAKHg\nJj3dFfDwD9FKBT3dkQik3AePVFSnMjek1IT8b/UohVv0NhDjY2ofwuJo6eT7apCZ\nCPiYWEdmKyi6z4Flnx67ZJd8lceqxd1/6PRN+WhkE+rndPWxOP8RRaBrKPmP0fEC\nn4CTXbUazfGA/sjyp4I24ORdaSaQ5Ioqoj6Tp1o9AoGBAOXSgkkSkfcG+oRF3AlD\nbk5tiK/7ZDMTKUMR9NutduYXuavDM70nQeZWH9BrfX347n+nB9QhNMl9dcF7oM6T\nqYcU9TdA39OV/mGADj4ARowhkVb+4A8piubWWqKCn1apKgTQuFfSwv5CXNPghE19\nTKD/77SVmL74qDPA2n8zDr5R\n-----END PRIVATE KEY-----\n",
+    "client_email": "notebin-service-account@notebin-438804.iam.gserviceaccount.com",
+    "client_id": "113721622762176622518",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/notebin-service-account%40notebin-438804.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
