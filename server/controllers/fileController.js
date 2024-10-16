@@ -66,7 +66,7 @@
       const newFile = new File({
         filename: req.file.originalname,
         fileUrl: file.data.webContentLink || `https://drive.google.com/uc?export=download&id=${response.data.id}`,
-        viewUrl: file.data.webViewLink,
+        viewUrl: file.data.webViewLink || `https://drive.google.com/file/d/${response.data.id}/view?usp=drivesdk`,
         title: req.body.title,
         subject: req.body.subject,
         semester: req.body.semester,
