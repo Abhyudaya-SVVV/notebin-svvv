@@ -6,7 +6,7 @@
 .pnp.js
 .yarn/install-state.gz
 
-/utils/notebin.json
+server/utils/notebin.json
 
 # testing
 /coverage
