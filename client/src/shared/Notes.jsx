@@ -22,6 +22,7 @@ const Notes = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  console.log(notes)
 
   useEffect(() => {
     const fetchNotes = async () => {
