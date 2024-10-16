@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaCircleUser } from "react-icons/fa6";
 import { IoLogOut } from "react-icons/io5";
 import { MdHome, MdFileUpload, MdDelete, MdMenu } from "react-icons/md";
+import { ThreeDot } from 'react-loading-indicators';
 
 import Footer from '@/components/Footer';
 import Upload from '@/components/Upload';
@@ -119,7 +120,7 @@ const UploadNotes = () => {
       <div className='bg-white rounded-lg shadow overflow-hidden'>
         <div className='max-h-[60vh] sm:max-h-[70vh] overflow-y-auto p-2 sm:p-4'>
           {loading ? (
-            <p className="text-center">Loading notes...</p>
+            <div className='flex justify-center items-center'><ThreeDot variant="pulsate" color="#18181C" size="small" text="" textColor="" /></div>
           ) : notes.length === 0 ? (
             <p className="text-center">No notes found.</p>
           ) : (

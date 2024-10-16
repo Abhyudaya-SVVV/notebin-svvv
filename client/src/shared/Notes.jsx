@@ -8,6 +8,9 @@ import initialFilters from "@/constants/filters";
 import { MdVerified } from "react-icons/md";
 import Cookies from "js-cookie";
 import { BASE_URL } from "@/constants/data";
+import { GrView } from "react-icons/gr";
+import { ThreeDot } from "react-loading-indicators";
+
 
 const Notes = () => {
   const [filters, setFilters] = useState(initialFilters);
@@ -250,7 +253,9 @@ const Notes = () => {
             {/* Note grid */}
             <div className="lg:col-span-4 min-h-screen">
               {loading ? (
-                <div className="w-full min-h-screen">Loading...</div>
+                <div className="flex items-center justify-center h-[40vh]">
+                  <ThreeDot variant="pulsate" color="#18181C" size="small" text="" textColor="" />
+                </div>
               ) : error ? (
                 <div className="w-full min-h-screen">Error: {error}</div>
               ) : (
@@ -289,6 +294,7 @@ const NoteCard = ({ note, formatDate }) => {
       </h1>
       <div className="flex justify-between items-center mb-2">
         <p className="text-sm">{note.semester} sem</p>
+        <div className="flex space-x-1">
         <a
           href={note.fileUrl}
           rel="noopener noreferrer"
@@ -296,6 +302,15 @@ const NoteCard = ({ note, formatDate }) => {
         >
           Download
         </a>
+        <a
+          href={note.viewUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-secondary text-primary px-2 py-1 rounded text-sm"
+        >
+          <GrView size={18}/>
+        </a>
+        </div>
       </div>
       <div className="text-xs text-gray-500">
         <p>{note.user.name}</p>

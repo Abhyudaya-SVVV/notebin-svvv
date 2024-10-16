@@ -123,7 +123,7 @@ const Upload = ({ onUploadSuccess }) => {
             accept=".pdf,.doc,.docx"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Note: The file size must be less than 25MB, and only PDF and Word documents are accepted.
+            Note: The file size must be less than 50MB, and only PDF and Word documents are accepted.
           </p>
         </div>
         {uploadState && (

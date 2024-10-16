@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { ThreeDot } from 'react-loading-indicators';
 
 const UserProfile = () => {
   const user = useSelector((state) => state.auth.user);
   console.log(user);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <ThreeDot variant="pulsate" color="#18181C" size="small" text="" textColor="" />;
   }
 
   return (
