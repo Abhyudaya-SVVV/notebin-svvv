@@ -244,7 +244,7 @@ const Upload = ({ onUploadSuccess }) => {
                         onClick={handleSubjectCodeCreate}
                         className="mt-2 text-primary hover:text-primary/90"
                       >
-                        Create "{subjectCodeQuery.toUpperCase()}"
+                        Create &#34;{subjectCodeQuery.toUpperCase()}&#34;
                       </button>
                     </div>
                   )
@@ -313,7 +313,7 @@ const Upload = ({ onUploadSuccess }) => {
                       onClick={handleTagCreate}
                       className="mt-2 text-primary hover:text-primary/90"
                     >
-                      Create "{tagSearchQuery}"
+                      Create &#34;{tagSearchQuery}&#34;
                     </button>
                   </div>
                 )}
