@@ -1,10 +1,8 @@
-import Logs from '@/shared/Logs'
-import React from 'react'
+import Logs from '@/shared/Logs';
+import React from 'react';
 
 const page = () => {
-  return (
-    <Logs/>
-  )
-}
+  return <Logs />;
+};
 
-export default page
+export default page;

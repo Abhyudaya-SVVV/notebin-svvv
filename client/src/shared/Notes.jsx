@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ChevronDownIcon, SearchIcon } from "lucide-react";
-import Footer from "@/components/Footer";
-import { FaFilter } from "react-icons/fa";
-import Navbar from "@/components/Navbar";
-import initialFilters from "@/constants/filters";
-import { MdVerified } from "react-icons/md";
-import Cookies from "js-cookie";
-import { BASE_URL } from "@/constants/data";
-import { ThreeDot } from "react-loading-indicators";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { ChevronDownIcon, SearchIcon } from 'lucide-react';
+import Footer from '@/components/Footer';
+import { FaFilter } from 'react-icons/fa';
+import Navbar from '@/components/Navbar';
+import initialFilters from '@/constants/filters';
+import { MdVerified } from 'react-icons/md';
+import Cookies from 'js-cookie';
+import { BASE_URL } from '@/constants/data';
+import { ThreeDot } from 'react-loading-indicators';
 
 const Notes = () => {
   const [filters, setFilters] = useState(initialFilters);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState("Newest");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState('Newest');
   const [filteredNotes, setFilteredNotes] = useState([]);
   const [openDropdowns, setOpenDropdowns] = useState({});
   const [notes, setNotes] = useState([]);
@@ -23,7 +23,7 @@ const Notes = () => {
 
   useEffect(() => {
     const fetchNotes = async () => {
-      const token = Cookies.get("token");
+      const token = Cookies.get('token');
       try {
         const response = await axios.get(`${BASE_URL}api/v1/file/`, {
           headers: {
@@ -51,10 +51,10 @@ const Notes = () => {
       note.user?.name,
       note.user?.enrollmentNo,
       note.keyword,
-      ...(note.tags?.map(tag => tag.name) || [])
+      ...(note.tags?.map((tag) => tag.name) || []),
     ];
 
-    return fieldsToSearch.some(field => 
+    return fieldsToSearch.some((field) =>
       field?.toLowerCase().includes(searchTermLower)
     );
   };
@@ -64,7 +64,7 @@ const Notes = () => {
 
     // Apply search first
     if (searchTerm) {
-      result = result.filter(note => noteMatchesSearch(note, searchTerm));
+      result = result.filter((note) => noteMatchesSearch(note, searchTerm));
     }
 
     // Apply filters
@@ -75,10 +75,10 @@ const Notes = () => {
 
       if (checkedOptions.length > 0) {
         result = result.filter((note) => {
-          if (filter.id === "semester") {
+          if (filter.id === 'semester') {
             return checkedOptions.includes(note.semester.toLowerCase());
           }
-          if (filter.id === "subject") {
+          if (filter.id === 'subject') {
             return checkedOptions.includes(note.subject.toLowerCase());
           }
           // Add more specific filter conditions as needed
@@ -88,14 +88,14 @@ const Notes = () => {
     });
 
     switch (sortOption) {
-      case "Oldest":
+      case 'Oldest':
         result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         break;
-      case "Newest":
+      case 'Newest':
         result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         break;
-      case "Verified":
-        result = result.filter((note) => note.user?.accountType === "faculty");
+      case 'Verified':
+        result = result.filter((note) => note.user?.accountType === 'faculty');
         // Also sort verified notes by date
         result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         break;
@@ -142,15 +142,15 @@ const Notes = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
     return `${day}/${month}/${year}`;
   };
 
   const NoteCard = ({ note, formatDate }) => {
     return (
       <div className="group relative bg-gradient-to-b from-white via-white to-tertiary/40 border rounded shadow-md p-4">
-        {note.user?.accountType === "faculty" && (
+        {note.user?.accountType === 'faculty' && (
           <MdVerified
             className="absolute -top-1 -right-1"
             size="20"
@@ -267,7 +267,7 @@ const Notes = () => {
                       <span className="ml-6 flex items-center">
                         <ChevronDownIcon
                           className={`h-5 w-5 transform ${
-                            openDropdowns[section.id] ? "rotate-180" : ""
+                            openDropdowns[section.id] ? 'rotate-180' : ''
                           }`}
                           aria-hidden="true"
                         />
@@ -326,7 +326,9 @@ const Notes = () => {
                   />
                 </div>
               ) : error ? (
-                <div className="text-center text-red-600 py-8">Error: {error}</div>
+                <div className="text-center text-red-600 py-8">
+                  Error: {error}
+                </div>
               ) : filteredNotes.length === 0 ? (
                 <div className="text-center text-gray-500 py-8">
                   No notes found matching your criteria
@@ -354,7 +356,6 @@ const Notes = () => {
 
 export default Notes;
 
-
 const MobileFilterDialog = ({
   mobileFiltersOpen,
   setMobileFiltersOpen,
@@ -373,7 +374,7 @@ const MobileFilterDialog = ({
   return (
     <div
       className={`fixed inset-0 flex z-40 lg:hidden ${
-        mobileFiltersOpen ? "" : "hidden"
+        mobileFiltersOpen ? '' : 'hidden'
       }`}
     >
       <div className="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-6 flex flex-col overflow-y-auto">
@@ -423,7 +424,7 @@ const MobileFilterDialog = ({
                     <span className="ml-6 h-7 flex items-center">
                       <svg
                         className={`${
-                          openDropdowns[section.id] ? "rotate-180" : "rotate-0"
+                          openDropdowns[section.id] ? 'rotate-180' : 'rotate-0'
                         } h-5 w-5 transform`}
                         viewBox="0 0 20 20"
                         fill="currentColor"

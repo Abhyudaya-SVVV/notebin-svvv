@@ -4,9 +4,9 @@ import axios from 'axios';
 import jsCookie from 'js-cookie';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaCircleUser } from "react-icons/fa6";
-import { IoLogOut } from "react-icons/io5";
-import { MdHome, MdFileUpload, MdDelete, MdMenu } from "react-icons/md";
+import { FaCircleUser } from 'react-icons/fa6';
+import { IoLogOut } from 'react-icons/io5';
+import { MdHome, MdFileUpload, MdDelete, MdMenu } from 'react-icons/md';
 import { ThreeDot } from 'react-loading-indicators';
 
 import Footer from '@/components/Footer';
@@ -43,8 +43,8 @@ const UploadNotes = () => {
       const token = jsCookie.get('token');
       const response = await axios.get(`${BASE_URL}api/v1/file/userfiles`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       setNotes(response.data);
     } catch (error) {
@@ -65,8 +65,8 @@ const UploadNotes = () => {
       const token = jsCookie.get('token');
       await axios.delete(`${BASE_URL}api/v1/file/delete/${noteId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       toast.success('Note deleted successfully');
       fetchNotes();
@@ -91,7 +91,8 @@ const UploadNotes = () => {
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <nav className={`
+        <nav
+          className={`
           ${mobileMenuOpen ? 'block' : 'hidden'} 
           md:block 
           bg-primary text-tertiary
@@ -100,51 +101,104 @@ const UploadNotes = () => {
           inset-0 md:inset-auto 
           z-20 md:z-auto
           overflow-y-auto
-        `}>
+        `}
+        >
           <div className="flex flex-col items-center py-4 space-y-6 ">
-            <div className='w-10 h-10 overflow-hidden rounded-full hidden md:block'>
-              <img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" alt="" className='w-full h-full' />
+            <div className="w-10 h-10 overflow-hidden rounded-full hidden md:block">
+              <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
+                alt=""
+                className="w-full h-full"
+              />
             </div>
-            <Link href="/" className="flex gap-1 p-2 hover:bg-secondary/30 rounded"><MdHome size={25} /> <span className="block lg:hidden">HOME</span></Link>
-            <button onClick={handleUploadClick} className=" flex gap-1 p-2 hover:bg-secondary/30 rounded"><MdFileUpload size={25} /> <span className="block lg:hidden">UPLOAD</span></button>
-            <button onClick={handleAdminClick} className="flex gap-1 p-2 hover:bg-secondary/30 rounded"><FaCircleUser  size={24} /> <span className="block lg:hidden">PROFILE</span></button>
-            <button onClick={handleLogout} className="flex gap-1 p-2 hover:bg-secondary/30 rounded"><IoLogOut size={25} /> <span className="block lg:hidden">LOGOUT</span></button>
+            <Link
+              href="/"
+              className="flex gap-1 p-2 hover:bg-secondary/30 rounded"
+            >
+              <MdHome size={25} /> <span className="block lg:hidden">HOME</span>
+            </Link>
+            <button
+              onClick={handleUploadClick}
+              className=" flex gap-1 p-2 hover:bg-secondary/30 rounded"
+            >
+              <MdFileUpload size={25} />{' '}
+              <span className="block lg:hidden">UPLOAD</span>
+            </button>
+            <button
+              onClick={handleAdminClick}
+              className="flex gap-1 p-2 hover:bg-secondary/30 rounded"
+            >
+              <FaCircleUser size={24} />{' '}
+              <span className="block lg:hidden">PROFILE</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex gap-1 p-2 hover:bg-secondary/30 rounded"
+            >
+              <IoLogOut size={25} />{' '}
+              <span className="block lg:hidden">LOGOUT</span>
+            </button>
           </div>
         </nav>
 
         {/* Main Content */}
         <main className="flex-1 p-4 md:flex">
           {/* Notes List */}
-          <div className='w-full lg:w-1/3 xl:w-1/4 mb-4 lg:mb-0 lg:mr-4'>
-      <h2 className='text-xl sm:text-2xl text-primary font-semibold mb-4'>All Notes</h2>
-      <div className='bg-white rounded-lg shadow overflow-hidden'>
-        <div className='max-h-[60vh] sm:max-h-[70vh] overflow-y-auto p-2 sm:p-4'>
-          {loading ? (
-            <div className='flex justify-center items-center'><ThreeDot variant="pulsate" color="#18181C" size="small" text="" textColor="" /></div>
-          ) : notes.length === 0 ? (
-            <p className="text-center">No notes found.</p>
-          ) : (
-            notes.map(note => (
-              <div key={note.id} className='flex flex-col sm:flex-row  justify-between bg-primary text-tertiary px-2 py-1 md:py-2 rounded mb-2 md:items-start sm:items-center'>
-                <span className="truncate w-full text-sm sm:w-auto sm:flex-1 mr-2 mb-0 md:mb-2 sm:mb-0">{note.title}</span>
-                <div className="flex items-center w-full sm:w-auto justify-between sm:justify-end">
-                  <Link href={note.fileUrl} className="mr-2 hover:underline text-green-400">
-                    <small>Download</small>
-                  </Link>
-                  <button onClick={() => handleDelete(note._id)} className="text-red-400 hover:underline">
-                    <small>Delete</small>
-                  </button>
-                </div>
+          <div className="w-full lg:w-1/3 xl:w-1/4 mb-4 lg:mb-0 lg:mr-4">
+            <h2 className="text-xl sm:text-2xl text-primary font-semibold mb-4">
+              All Notes
+            </h2>
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              <div className="max-h-[60vh] sm:max-h-[70vh] overflow-y-auto p-2 sm:p-4">
+                {loading ? (
+                  <div className="flex justify-center items-center">
+                    <ThreeDot
+                      variant="pulsate"
+                      color="#18181C"
+                      size="small"
+                      text=""
+                      textColor=""
+                    />
+                  </div>
+                ) : notes.length === 0 ? (
+                  <p className="text-center">No notes found.</p>
+                ) : (
+                  notes.map((note) => (
+                    <div
+                      key={note.id}
+                      className="flex flex-col sm:flex-row  justify-between bg-primary text-tertiary px-2 py-1 md:py-2 rounded mb-2 md:items-start sm:items-center"
+                    >
+                      <span className="truncate w-full text-sm sm:w-auto sm:flex-1 mr-2 mb-0 md:mb-2 sm:mb-0">
+                        {note.title}
+                      </span>
+                      <div className="flex items-center w-full sm:w-auto justify-between sm:justify-end">
+                        <Link
+                          href={note.fileUrl}
+                          className="mr-2 hover:underline text-green-400"
+                        >
+                          <small>Download</small>
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(note._id)}
+                          className="text-red-400 hover:underline"
+                        >
+                          <small>Delete</small>
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
-            ))
-          )}
-        </div>
-      </div>
-    </div>
+            </div>
+          </div>
 
           {/* Upload or User Profile */}
-          <div className='flex-1 bg-white rounded-lg shadow p-4'>
-            {showRequests ? <UserProfile /> : showUpload ? <Upload onUploadSuccess={fetchNotes} /> : null}
+          <div className="flex-1 bg-white rounded-lg shadow p-4">
+            {showRequests ? (
+              <UserProfile />
+            ) : showUpload ? (
+              <Upload onUploadSuccess={fetchNotes} />
+            ) : null}
           </div>
         </main>
       </div>

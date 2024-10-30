@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +15,10 @@ const Forgot = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}api/v1/user/forgot-password`, { email });
+      const response = await axios.post(
+        `${BASE_URL}api/v1/user/forgot-password`,
+        { email }
+      );
       toast.success(response.data.message);
       setStep(2);
     } catch (error) {
@@ -26,7 +29,10 @@ const Forgot = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}api/v1/user/reset-password`, { email, otp, newPassword });
+      const response = await axios.post(
+        `${BASE_URL}api/v1/user/reset-password`,
+        { email, otp, newPassword }
+      );
       toast.success(response.data.message);
       setStep(3);
     } catch (error) {
@@ -45,7 +51,12 @@ const Forgot = () => {
         {step === 1 && (
           <form className="mt-8 space-y-6" onSubmit={handleSendOtp}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email Address
+              </label>
               <input
                 id="email"
                 name="email"
@@ -71,7 +82,12 @@ const Forgot = () => {
         {step === 2 && (
           <form className="mt-8 space-y-6" onSubmit={handleResetPassword}>
             <div>
-              <label htmlFor="otp" className="block text-sm font-medium text-gray-700">OTP</label>
+              <label
+                htmlFor="otp"
+                className="block text-sm font-medium text-gray-700"
+              >
+                OTP
+              </label>
               <input
                 id="otp"
                 name="otp"
@@ -84,7 +100,12 @@ const Forgot = () => {
               />
             </div>
             <div>
-              <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
+              <label
+                htmlFor="newPassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                New Password
+              </label>
               <input
                 id="newPassword"
                 name="newPassword"
@@ -108,14 +129,19 @@ const Forgot = () => {
         )}
         {step === 3 && (
           <div className="text-center py-8">
-            <p className="text-xl font-semibold text-green-600 mb-4">Password reset successful!</p>
-            <Link href="/login" className="inline-block text-primary hover:text-primary/80 transition duration-300">
+            <p className="text-xl font-semibold text-green-600 mb-4">
+              Password reset successful!
+            </p>
+            <Link
+              href="/login"
+              className="inline-block text-primary hover:text-primary/80 transition duration-300"
+            >
               Return to Login
             </Link>
           </div>
         )}
       </div>
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}

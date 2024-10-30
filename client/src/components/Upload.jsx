@@ -24,7 +24,14 @@ const Upload = ({ onUploadSuccess }) => {
   const [showSubjectCodeDropdown, setShowSubjectCodeDropdown] = useState(false);
 
   const semesters = [
-    'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh', 'Eighth'
+    'First',
+    'Second',
+    'Third',
+    'Fourth',
+    'Fifth',
+    'Sixth',
+    'Seventh',
+    'Eighth',
   ];
 
   // Fetch existing tags on component mount
@@ -35,9 +42,11 @@ const Upload = ({ onUploadSuccess }) => {
   const fetchTags = async () => {
     try {
       const response = await axios.get(`${BASE_URL}api/v1/file/get-tags`);
-      const formattedTags = response.data.map(tag => 
-        typeof tag === 'object' ? tag.name || tag.tag || '' : tag
-      ).filter(Boolean);
+      const formattedTags = response.data
+        .map((tag) =>
+          typeof tag === 'object' ? tag.name || tag.tag || '' : tag
+        )
+        .filter(Boolean);
       setExistingTags(formattedTags);
     } catch (error) {
       console.error('Error fetching tags:', error);
@@ -131,11 +140,15 @@ const Upload = ({ onUploadSuccess }) => {
     setUploadState('Uploading...');
 
     try {
-      const response = await axios.post(`${BASE_URL}api/v1/file/upload`, formDataObj, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `${BASE_URL}api/v1/file/upload`,
+        formDataObj,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.status === 200) {
         setUploadState('Uploaded successfully!');
         toast.success('File uploaded successfully!');
@@ -159,36 +172,34 @@ const Upload = ({ onUploadSuccess }) => {
   };
 
   // Filter subject codes based on search query
-  const filteredSubjectCodes = subjectCodes.filter(code =>
+  const filteredSubjectCodes = subjectCodes.filter((code) =>
     code.toLowerCase().includes(subjectCodeQuery.toLowerCase())
   );
 
   // Filter tags
   const filteredTags = existingTags
-    .filter(tag => tag && typeof tag === 'string')
-    .filter(tag => 
-      tag.toLowerCase().includes(tagSearchQuery.toLowerCase())
-    );
+    .filter((tag) => tag && typeof tag === 'string')
+    .filter((tag) => tag.toLowerCase().includes(tagSearchQuery.toLowerCase()));
 
   return (
-    <div className='w-full h-full p-6 bg-gray-50'>
+    <div className="w-full h-full p-6 bg-gray-50">
       <h2 className="text-2xl font-bold text-primary mb-6">Upload New Note</h2>
-      <form onSubmit={handleSubmit} className='flex flex-col items-start gap-5'>
+      <form onSubmit={handleSubmit} className="flex flex-col items-start gap-5">
         <input
-          type='text'
-          name='title'
-          placeholder='Enter Title of the Notes'
+          type="text"
+          name="title"
+          placeholder="Enter Title of the Notes"
           value={formData.title}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
+          className="outline-none rounded px-3 py-2 w-full max-w-md border border-primary"
         />
         <input
-          type='text'
-          name='subject'
-          placeholder='Enter Subject'
+          type="text"
+          name="subject"
+          placeholder="Enter Subject"
           value={formData.subject}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
+          className="outline-none rounded px-3 py-2 w-full max-w-md border border-primary"
         />
 
         {/* Subject Code Dropdown */}
@@ -222,17 +233,21 @@ const Upload = ({ onUploadSuccess }) => {
                       </li>
                     ))}
                   </ul>
-                ) : subjectCodeQuery && (
-                  <div className="p-4">
-                    <p className="text-sm text-gray-600">No matching subject codes found</p>
-                    <button
-                      type="button"
-                      onClick={handleSubjectCodeCreate}
-                      className="mt-2 text-primary hover:text-primary/90"
-                    >
-                      Create "{subjectCodeQuery.toUpperCase()}"
-                    </button>
-                  </div>
+                ) : (
+                  subjectCodeQuery && (
+                    <div className="p-4">
+                      <p className="text-sm text-gray-600">
+                        No matching subject codes found
+                      </p>
+                      <button
+                        type="button"
+                        onClick={handleSubjectCodeCreate}
+                        className="mt-2 text-primary hover:text-primary/90"
+                      >
+                        Create "{subjectCodeQuery.toUpperCase()}"
+                      </button>
+                    </div>
+                  )
                 )}
               </div>
             )}
@@ -247,14 +262,16 @@ const Upload = ({ onUploadSuccess }) => {
         </div>
 
         <select
-          name='semester'
+          name="semester"
           value={formData.semester}
           onChange={handleChange}
-          className='outline-none rounded px-3 py-2 w-full max-w-md border border-primary'
+          className="outline-none rounded px-3 py-2 w-full max-w-md border border-primary"
         >
           <option value="">Select Semester</option>
           {semesters.map((sem) => (
-            <option key={sem} value={sem}>{sem}</option>
+            <option key={sem} value={sem}>
+              {sem}
+            </option>
           ))}
         </select>
 
@@ -288,7 +305,9 @@ const Upload = ({ onUploadSuccess }) => {
                   </ul>
                 ) : (
                   <div className="p-4">
-                    <p className="text-sm text-gray-600">No matching tags found</p>
+                    <p className="text-sm text-gray-600">
+                      No matching tags found
+                    </p>
                     <button
                       type="button"
                       onClick={handleTagCreate}
@@ -319,26 +338,29 @@ const Upload = ({ onUploadSuccess }) => {
 
         <div className="w-full max-w-md">
           <input
-            type='file'
-            name='file'
+            type="file"
+            name="file"
             onChange={handleChange}
-            className='w-full'
+            className="w-full"
             accept=".pdf,.doc,.docx"
           />
           <p className="text-sm text-gray-600 mt-1">
-            Note: The file size must be less than 50MB, and only PDF and Word documents are accepted.
+            Note: The file size must be less than 50MB, and only PDF and Word
+            documents are accepted.
           </p>
         </div>
 
         {uploadState && (
-          <div className={`mt-3 text-center ${uploadState.includes('failed') ? 'text-red-500' : 'text-green-500'}`}>
+          <div
+            className={`mt-3 text-center ${uploadState.includes('failed') ? 'text-red-500' : 'text-green-500'}`}
+          >
             {uploadState}
           </div>
         )}
 
-        <button 
-          type='submit' 
-          className='bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition duration-300 disabled:opacity-50'
+        <button
+          type="submit"
+          className="bg-primary text-white px-4 py-2 rounded hover:bg-primary/90 transition duration-300 disabled:opacity-50"
           disabled={loading}
         >
           {loading ? 'Uploading...' : 'Upload'}

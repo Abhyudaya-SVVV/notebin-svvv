@@ -9,7 +9,7 @@ const ProtectedRoute = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const token = Cookie.get('token'); 
+  const token = Cookie.get('token');
 
   useEffect(() => {
     if (!user && token) {
@@ -34,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
   }, [user, token, dispatch, router]);
 
   if (!user) {
-    return null; 
+    return null;
   }
 
   return <>{children}</>;

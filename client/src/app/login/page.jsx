@@ -1,10 +1,8 @@
-import Login from '@/shared/Login'
-import React from 'react'
+import Login from '@/shared/Login';
+import React from 'react';
 
 const page = () => {
-  return (
-    <Login/>
-  )
-}
+  return <Login />;
+};
 
-export default page
+export default page;

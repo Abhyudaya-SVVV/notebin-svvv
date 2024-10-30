@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const token = Cookies.get('token'); 
+const token = Cookies.get('token');
 
 export const fetchNotes = createAsyncThunk('notes/fetchNotes', async () => {
   const response = await axios.get(`${BASE_URL}api/v1/file/`, {

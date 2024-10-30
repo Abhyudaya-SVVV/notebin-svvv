@@ -1,16 +1,16 @@
-"use client"
-import ProtectedRoute from '@/shared/ProtectedRoute'
-import UploadNotes from '@/shared/UploadNotes'
-import React from 'react'
+'use client';
+import ProtectedRoute from '@/shared/ProtectedRoute';
+import UploadNotes from '@/shared/UploadNotes';
+import React from 'react';
 
 const page = () => {
   return (
     <>
-    <ProtectedRoute>
-    <UploadNotes/>
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <UploadNotes />
+      </ProtectedRoute>
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

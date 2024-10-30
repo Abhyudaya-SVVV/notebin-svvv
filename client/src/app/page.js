@@ -1,18 +1,18 @@
-"use client";
-import React, { useState, useRef, useEffect } from "react";
-import { GoRocket } from "react-icons/go";
-import { MdGroups } from "react-icons/md";
-import { RiFolderSharedFill } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchNotes } from "../slices/notesSlice";
-import Navbar from "@/components/Navbar";
-import { MdVerified } from "react-icons/md";
-import Footer from "@/components/Footer";
-import Link from "next/link";
+'use client';
+import React, { useState, useRef, useEffect } from 'react';
+import { GoRocket } from 'react-icons/go';
+import { MdGroups } from 'react-icons/md';
+import { RiFolderSharedFill } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNotes } from '../slices/notesSlice';
+import Navbar from '@/components/Navbar';
+import { MdVerified } from 'react-icons/md';
+import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 const Page = () => {
   const [modal, setModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const searchRef = useRef(null);
   const modalRef = useRef(null);
 
@@ -36,9 +36,9 @@ const Page = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -46,7 +46,7 @@ const Page = () => {
     if (!highlight.trim()) {
       return text;
     }
-    const regex = new RegExp(`(${highlight})`, "gi");
+    const regex = new RegExp(`(${highlight})`, 'gi');
     const parts = text.split(regex);
     return parts.map((part, index) =>
       regex.test(part) ? (
@@ -91,7 +91,7 @@ const Page = () => {
             {searchTerm && (
               <button
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                onClick={() => setSearchTerm("")}
+                onClick={() => setSearchTerm('')}
               >
                 ×
               </button>
@@ -108,21 +108,23 @@ const Page = () => {
             ref={modalRef}
           >
             <div className="sticky top-0 bg-tertiary z-10 px-3 py-2 border-b border-primary/15">
-              <h3 className="text-base font-semibold text-primary">Search Results</h3>
+              <h3 className="text-base font-semibold text-primary">
+                Search Results
+              </h3>
             </div>
             <div className="p-3">
-              {status === "loading" && (
+              {status === 'loading' && (
                 <div className="text-center py-2 text-sm">Loading...</div>
               )}
-              {status === "succeeded" && filteredNotes.length > 0 ? (
+              {status === 'succeeded' && filteredNotes.length > 0 ? (
                 filteredNotes.map((note, index) => (
                   <div
                     key={note._id}
                     className={`relative text-xs sm:text-sm mb-1 flex w-full p-2 items-center justify-between rounded ${
-                      index % 2 === 0 ? "bg-white/20" : "bg-tertiary"
+                      index % 2 === 0 ? 'bg-white/20' : 'bg-tertiary'
                     }`}
                   >
-                    {note.user.accountType === "faculty" ? (
+                    {note.user.accountType === 'faculty' ? (
                       <MdVerified
                         className="absolute top-0 right-0 text-white"
                         size="15"
@@ -151,7 +153,7 @@ const Page = () => {
                   No results found
                 </div>
               )}
-              {status === "failed" && (
+              {status === 'failed' && (
                 <div className="text-center py-3 text-sm text-red-500">
                   Failed to load notes
                 </div>
@@ -161,7 +163,7 @@ const Page = () => {
         )}
 
         <p className="text-center text-xs sm:text-sm mb-8">
-          Popular searches:{" "}
+          Popular searches:{' '}
           <span className="bg-secondary/30 px-2 py-1 text-xs rounded-full text-white mr-2 inline-block mt-2">
             DLCD
           </span>
